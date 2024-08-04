@@ -71,6 +71,7 @@ function Add() {
             <p>Product Category</p>
             <select onChange={OnChangeHandler} value={data.category} name="category" id="">
               <option value="Salad">Salad</option>
+              <option value="Rolls">Rolls</option>
               <option value="Deserts">Deserts</option>
               <option value="Sandwich">Sandwich</option>
               <option value="Cake">Cake</option>

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 function List({url}) {
  
+  const [list,setList]=useState([])
 
     const fetchList=async ()=>{
       const response=await axios.get(`${url}/api/food/list`)
@@ -11,6 +12,8 @@ function List({url}) {
       console.log(response.data.data)
       if(response.data.Sucess){
         setList(response.data.data)
+        
+      
         console.log("hello i a, set")
       }
       else{

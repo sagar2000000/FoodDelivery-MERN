@@ -8,7 +8,28 @@ import validator from 'validator'
 //login user
 
 const loginUser=async(req,res)=>{
+  const {email,password}=req.body
+  try {
+    const user= await UserModel.findOne({email})
+  
+    if(!user){
+      return res.json({success:false,message:"User doesnt exists"})
+    }
 
+     const isMatch=await bcrypt.compare(password,user.password)
+    if (!isMatch){
+      return res.json({success:false,message:"Invalid credentials"})
+    }
+    const token=createToken(user._id)
+    res.json({success:true,token})
+
+    
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success:false,message:"error",})
+    
+  }
 
 
 }
@@ -25,14 +46,14 @@ try {
     const exists=await UserModel.findOne({email})
     if (exists) {
 
-      return res.json({sucess:false,message:"User with this email already exists"})
+      return res.json({success:false,message:"User with this email already exists"})
       
     } 
     if(!validator.isEmail(email)){
-      return res.json({sucess:false,message:"Please enter a valid email"})
+      return res.json({success:false,message:"Please enter a valid email"})
     }
     if(password.length<8){
-      return res.json({sucess:false ,message:"Please enter a strong password"})
+      return res.json({success:false ,message:"Please enter a strong password"})
     }
 
     //hashing user password
@@ -49,12 +70,12 @@ try {
 
     const user=await newUser.save()
     const token=createToken(user._id)
-    res.json({sucess:true,token})
+    res.json({success:true,token})
 
 
 } catch (error) {
   console.log(error)
-  res.json({sucess:false,message:"Error"})
+  res.json({success:false,message:"Error"})
 }
 }
 

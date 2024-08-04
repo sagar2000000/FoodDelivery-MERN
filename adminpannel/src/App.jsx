@@ -7,7 +7,8 @@ import List from './pages/List/List.jsx'
 import Orders from './pages/Orders/Orders.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const App = ({url}) => {
+const App = () => {
+  const url="http://localhost:4000"
   return (
     <div>
       <ToastContainer/>
